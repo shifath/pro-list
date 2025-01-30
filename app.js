@@ -6,10 +6,16 @@ const authRouter = require('./controller/auth');
 const todoRouter = require('./controller/todo');
 const pgSession = require('connect-pg-simple')(session); // Import the PostgreSQL session store
 const pool = require('./model/database'); // Import the database connection
+const cors = require('cors');
 
 const port = process.env.PORT || 3001;
 const app = express();
-
+const FRONT_END_URL = process.env.FRONT_END_URL||'http://localhost:3000';
+app.use(cors({
+    origin: `${FRONT_END_URL}`, // Adjust the origin to match your frontend
+    credentials: true, // Allow credentials (cookies) to be sent
+    allowedHeaders: ['Content-Type']
+  }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
