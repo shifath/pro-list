@@ -5,10 +5,11 @@ const RegisterForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     
+    const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:4000";
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const response = await fetch(`${process.env.HOST}:${process.env.PORT}/auth/register`, {
+        const response = await fetch(`${BACKEND_URL}/auth/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

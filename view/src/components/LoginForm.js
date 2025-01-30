@@ -6,10 +6,11 @@ const LoginForm = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:4000";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${process.env.HOST}:${process.env.PORT}/auth/login`, {
+    const response = await fetch(`${BACKEND_URL}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
