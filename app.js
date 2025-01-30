@@ -13,12 +13,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use('/auth', authRouter);
-app.use('/todo', todoRouter);
-
 app.use(session({
     store: new pgSession({
       pool: pool, // Use the existing PostgreSQL pool
@@ -31,5 +25,11 @@ app.use(session({
     httpOnly: true, // Prevent client-side JavaScript access
     maxAge: 1000 * 60 * 60 }//  Session expiry (1 hour)
   }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use('/auth', authRouter);
+app.use('/todo', todoRouter);
+
   
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
