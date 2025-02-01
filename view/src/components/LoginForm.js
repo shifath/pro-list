@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+require('dotenv').config();
 
 const LoginForm = ({ onLogin }) => {
   const [username, setUsername] = useState('');

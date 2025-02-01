@@ -10,9 +10,9 @@ const cors = require('cors');
 
 const port = process.env.PORT || 3001;
 const app = express();
-const FRONT_END_URL = process.env.FRONT_END_URL||'http://localhost:3000';
+const FRONTEND_URL = process.env.FRONTEND_URL||'http://localhost:3000';
 app.use(cors({
-    origin: `${FRONT_END_URL}`, // Adjust the origin to match your frontend
+    origin: `${FRONTEND_URL}`, // Adjust the origin to match your frontend
     credentials: true, // Allow credentials (cookies) to be sent
     allowedHeaders: ['Access-Control-Allow-Origin', 'Content-Type', 'Authorization'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']

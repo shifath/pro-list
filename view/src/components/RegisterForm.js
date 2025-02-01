@@ -1,5 +1,7 @@
 // filepath: /E:/Programming/Full Stack/to-do-list-solution-code/to-do-list-solution-code/view/src/components/RegisterForm.js
 import React, { useState } from 'react';
+require('dotenv').config();
+
 
 const RegisterForm = () => {
     const [username, setUsername] = useState('');
