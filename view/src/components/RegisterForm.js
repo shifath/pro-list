@@ -5,7 +5,7 @@ const RegisterForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     
-    const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:4000";
+    const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {

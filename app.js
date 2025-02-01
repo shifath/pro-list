@@ -14,7 +14,8 @@ const FRONT_END_URL = process.env.FRONT_END_URL||'http://localhost:3000';
 app.use(cors({
     origin: `${FRONT_END_URL}`, // Adjust the origin to match your frontend
     credentials: true, // Allow credentials (cookies) to be sent
-    allowedHeaders: ['Content-Type']
+    allowedHeaders: ['Access-Control-Allow-Origin', 'Content-Type', 'Authorization'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
   }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

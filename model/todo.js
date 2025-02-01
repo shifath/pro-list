@@ -1,19 +1,23 @@
 const pool = require('./database');
 
-const resetTodoSequence = async () => {
-  try {
-    await pool.query('setval(\'todo_todo_id_seq\', (SELECT MAX(todo_id)+1 FROM todo))');
-    console.log('Sequence reset successfully');
-  } catch (error) {
-    console.error('Error resetting sequence:', error);
-  }
-};
+
+
+// not being used as needs to be modified
+// const resetTodoSequence = async () => {
+//   try {
+//     await pool.query('SELECT setval(\'todo_todo_id_seq\', (SELECT MAX(todo_id)+1 FROM todo))');
+//     console.log('Sequence reset successfully');
+//   } catch (error) {
+//     console.error('Error resetting sequence:', error);
+//   }
+// };
+
 
 const createTodo = async (description, userId) => {
   // console.log("creatingtodo for user", userId); 
   try {
-    // await pool.query('setval(todo_id, (SELECT MAX(todo_id)+1 FROM todo))');
-    const result = await pool.query('INSERT INTO todo (description, user_id) VALUES ($1, $2) RETURNING *', [
+    await pool.query('SELECT setval(\'todo_todo_id_seq\', (SELECT MAX(todo_id)+1 FROM todo))');
+    const result = await pool.query('INSERT INTO todo (description, user_id) VALUES ($1, $2)', [
       description, userId
     ]);
     return result;
@@ -45,6 +49,6 @@ const removeTodo = async (id, userId) =>
   {
     console.log("removingtodo for user", userId, 'todo id', id);
     await pool.query('DELETE FROM todo WHERE todo_id = $1 AND user_id= $2', [id, userId]);
-    resetTodoSequence();
+    // resetTodoSequence(); 
   }
 module.exports = { createTodo, getTodo, removeTodo };

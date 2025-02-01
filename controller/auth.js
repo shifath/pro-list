@@ -25,6 +25,8 @@ router.post('/login', (req, res, next) => {
 });
 
 router.post('/register', async (req, res) => {
+  // console.log('registering');
+  // console.log(process.env.DB_USER)
   const { username, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
   try {
@@ -38,7 +40,6 @@ router.post('/register', async (req, res) => {
 });
 
 router.post('/logout', (req, res) => {
-  console.log('logging out');
   req.logout((err) => {
     if (err) { return next(err); }
     res.status(200).json({ message: 'Logout successful' });
@@ -46,6 +47,7 @@ router.post('/logout', (req, res) => {
   // res.set('Content-Type', 'application/json');
 });
 router.get('/checkuser', (req, res) => {
+  console.log('chekinguser');
   if (req.isAuthenticated()) {
     res.status(200).json({ message: 'User is authenticated' });
   } else {

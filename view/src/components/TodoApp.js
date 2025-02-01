@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { getTodos, removeTodo, createTodo } from '../util';
 import './App.css';
 
+
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
+
+
 const TodoApp = () => {
   const [todo, setTodo] = useState({
     description: '',
   });
-  const [todoList, setTodoList] = useState();
-  const [error, setError] = useState();
+  const [todoList, setTodoList] = useState(null);
+  const [error, setError] = useState(null);
 
   // update view from model w/ controller
   const fetchTodos = async () => {
@@ -28,15 +32,23 @@ const TodoApp = () => {
       setError(err);
     }
   };
-
+  const handleonChange = (e) => { 
+    e.preventDefault();
+    setTodo({
+      description: e.target.value,
+    });
+  }
   // send user action to controller
   const handleSubmit = async (e) => {
+    console.log(todo.description);
     e.preventDefault();
     setError();
-    const data = new FormData(e.currentTarget);
+    const data = new FormData();
+    data.set('description', todo.description);             
+    data.set('created_at', `${new Date().toISOString()}`);
+    const d_get = data.get('description');
+    console.log(d_get);
     try {
-      data.set('description', todo.description);
-      data.set('created_at', `${new Date().toISOString()}`);
       const newTodo = await createTodo(data);
       if (newTodo.error) {
         setError(newTodo.error);
@@ -49,7 +61,7 @@ const TodoApp = () => {
   };
 
   const logout = async () => {
-    const response = await fetch('/auth/logout', {
+    const response = await fetch(`${BACKEND_URL}/auth/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -78,7 +90,7 @@ const TodoApp = () => {
         <input
           type="text"
           value={todo.description}
-          onChange={(event) => setTodo({ ...todo, description: event.target.value })
+          onChange={(event) => handleonChange(event)
           }
         ></input>
         <button type="submit">Add Todo</button>

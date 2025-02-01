@@ -9,10 +9,10 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
 
-
+  const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
   const checkUserAuth = async ()=>{
     try {
-      const response = await fetch('/auth/checkuser', {
+      const response = await fetch(`${BACKEND_URL}/auth/checkuser`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

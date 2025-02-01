@@ -1,17 +1,23 @@
 const { createTodo, getTodo, removeTodo } = require('../model/todo');
+const formidable= require('formidable');
+
+
 
 exports.create = (req, res) => {
+  const form = new formidable.IncomingForm();
   form.keepExtensions = true;
   form.parse(req, async (err, fields) => {
+    console.log(fields);
     const { description } = fields;
     // check for all fields
-    if (!fields.description) {
+
+    if (description[0]==='') {
       return res.status(400).json({
         error: 'Description is required',
       });
     }
     try {
-      const newTask = await createTodo(description, req.user.id_user);
+      const newTask = await createTodo(description[0], req.user.id_user);
       return res.status(201).send({ data: newTask.rows[0] });
     } catch (error) {
       return res.status(400).json({
