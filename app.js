@@ -10,11 +10,11 @@ const cors = require('cors');
 
 const port = process.env.PORT || 3001;
 const app = express();
-const FRONTEND_URL = process.env.FRONTEND_URL||'http://localhost:3000';
+const FRONTEND_URL = process.env.FRONTEND_URL;
 app.use(cors({
     origin: `${FRONTEND_URL}`, // Adjust the origin to match your frontend
     credentials: true, // Allow credentials (cookies) to be sent
-    allowedHeaders: ['Access-Control-Allow-Origin', 'Content-Type', 'Authorization'],
+    allowedHeaders: ['Access-Control-Allow-Origin', 'Content-Type', 'Authorization', 'Set-Cookie'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
   }));
 app.use(express.json());
@@ -28,7 +28,9 @@ app.use(session({
     secret: 'cat',
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false , // Set to true if using HTTPS
+    cookie: { secure: true, // Set to true if using HTTPS
+    path: '/auth/checkuser',
+    domain: `${FRONTEND_URL}`,
     httpOnly: true, // Prevent client-side JavaScript access
     maxAge: 1000 * 60 * 60 }//  Session expiry (1 hour)
   }));
