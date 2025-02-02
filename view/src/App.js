@@ -3,14 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import AuthPage from './components/AuthPage';
 import TodoApp from './components/TodoApp';
-require('dotenv').config();
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
 
-  const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
   const checkUserAuth = async ()=>{
     try {
       const response = await fetch(`${BACKEND_URL}/auth/checkuser`, {

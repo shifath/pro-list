@@ -1,13 +1,12 @@
 // filepath: /E:/Programming/Full Stack/to-do-list-solution-code/to-do-list-solution-code/view/src/components/RegisterForm.js
 import React, { useState } from 'react';
-require('dotenv').config();
 
 
 const RegisterForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     
-    const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
+    const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
